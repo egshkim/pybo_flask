@@ -1,4 +1,13 @@
 from flask import Flask
+from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
+
+import config
+
+db = SQLAlchemy()
+migrate = Migrate()
+# db 와 migrate 객체를 전역 변수로 만든다. 함수 내에서 사용할 때는 init_app 메서드를 사용해 app 에 등록한다.
+# 만약 create_app 함수 내에서 만든다면 블루프린트 같은 다른 모듈에서 사용할 수 없다.
 
 
 def create_app():
@@ -19,7 +28,14 @@ def create_app():
     #     return 'Hello, Pybo!'
     # return app
 
+    app.config.from_object(config)
+    # ORM
+    db.init_app(app)
+    migrate.init_app(app, db)
+    from . import models
+
     # 작성한 블루프린트를 Flask Application 에 등록해보자.
     from .views import main_views
     app.register_blueprint(main_views.bp)
+
     return app
