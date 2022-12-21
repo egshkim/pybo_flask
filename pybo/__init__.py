@@ -35,7 +35,8 @@ def create_app():
     from . import models
 
     # 작성한 블루프린트를 Flask Application 에 등록해보자.
-    from .views import main_views
+    from .views import main_views, question_views
     app.register_blueprint(main_views.bp)
+    app.register_blueprint(question_views.bp)
 
     return app
