@@ -15,9 +15,12 @@ bp = Blueprint('question', __name__, url_prefix='/question')
 
 @bp.route('/list/')
 def _list():
+    page = request.args.get('page', type=int, default=1)
     question_list = Question.query.order_by(Question.create_date.desc())
+    question_list = question_list.paginate(page=page, per_page=10)
+    # paginate 함수에 의해, question_list 는 pagination 객체가 된다.
     return render_template('question/question_list.html', question_list=question_list)
-    # 템플릿에서 기대하는 question_list 는 이거다.. 하고 정의해주는 것이다.
+    # question_list=question_list : 템플릿에서 기대하는 question_list 는 이거다.. 하고 정의해주는 것이다.
 
     # 렌더링이란, 웹사이트 코드가 브라우저에 출력되는 과정 또는 그러한 행위를 말한다.
     # 템플릿이란, 파이썬 문법을 사용할 수 있는 HTML 파일을 말한다.
