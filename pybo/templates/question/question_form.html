@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- 질문 등록 -->
+<div class="container">
+    <h5 class="my-3 border-bottom pb-2">질문등록</h5>
+    <form method="post" class="my-3">
+        <!-- form 태그에서 액션 속성을 지정하지 않았으므로, 현재 페이지의 URL 이 디폴트 action 이 된다. -->
+        <!-- 이 템플릿을 질문 수정 페이지에서도 사용할 것이므로, action 을 지정하지 않는다. -->
+        <!-- 만약 여기서 action 을 지정해버리면, 질문 수정 페이지에서는 action 을 다시 지정해줘야한다. -->
+
+        {{ form.subject.label }}
+        <!-- 작성했던 폼 클래스 내 subject 객체의 라벨 표시 -->
+        {{ form.subject(class="form-control") }}
+        <!-- 작성했던 폼 클래스 내 subject 객체의 입력폼 표시. 부트스트랩 클래스인 "form-control" 을 적용했다. -->
+        <!-- 대괄호 2개를 사용해서 HTML 코드를 자동으로 생성하도록 했다. 그런데 이렇게 하면 내가 원하는 디자인을 적용할 수는 없다. -->
+        <!-- content 에 대한 HTML 코드는 직접 작성해보저. -->
+
+        <div class="mb-3">
+            <label for="content">내용</label>
+            <textarea class="form-control" name="content" id="content" rows="10"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">저장하기</button>
+    </form>
+</div>
+{% endblock %}
