@@ -4,9 +4,25 @@
 <div class="container">
     <h5 class="my-3 border-bottom pb-2">질문등록</h5>
     <form method="post" class="my-3">
+        {{ form.csrf_token }}
         <!-- form 태그에서 액션 속성을 지정하지 않았으므로, 현재 페이지의 URL 이 디폴트 action 이 된다. -->
         <!-- 이 템플릿을 질문 수정 페이지에서도 사용할 것이므로, action 을 지정하지 않는다. -->
         <!-- 만약 여기서 action 을 지정해버리면, 질문 수정 페이지에서는 action 을 다시 지정해줘야한다. -->
+
+        <!-- 오류표시 Start -->
+        {% if form.errors %}
+        <div class="alert alert-danger" role="alert">
+            {% for field, errors in form.errors.items() %}
+            <strong>{{ form[field].label }}</strong>
+            <ul>
+                {% for error in errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <!-- 오류표시 End -->
 
         {{ form.subject.label }}
         <!-- 작성했던 폼 클래스 내 subject 객체의 라벨 표시 -->

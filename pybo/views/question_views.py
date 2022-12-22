@@ -5,7 +5,7 @@ from werkzeug.utils import redirect
 
 from pybo import db
 from pybo.models import Question
-from pybo.forms import QuestionForm
+from pybo.forms import QuestionForm, AnswerForm
 
 bp = Blueprint('question', __name__, url_prefix='/question')
 # 이 블루프린트의 별칭은 'question' 이 된다.
@@ -28,9 +28,10 @@ def _list():
 @bp.route('/detail/<int:question_id>/')
 # question_id 가 삽입된다는 것이 아니다. 받은 int 를, question_id 라는 변수에 저장하겠다는 것이다.
 def detail(question_id):
+    form = AnswerForm()
     question = Question.query.get_or_404(question_id)
     # get_or_404() 함수 말고 그냥 get() 함수를 사용하면, 정의되지 않은 페이지를 입력했을 때 그냥 빈 화면이 나타난다.
-    return render_template('question/question_detail.html', question=question)
+    return render_template('question/question_detail.html', question=question, form=form)
     # 템플릿에서 기대하는 question 은 이거다.. 하고 정의해주는 것이다.
 
 

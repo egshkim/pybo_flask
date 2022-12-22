@@ -11,9 +11,15 @@
     <title>Hello, pybo!</title>
 </head>
 <body>
+<!-- 네비게이션바 코드 삽입 -->
+{% include "navbar.html" %}
+<!-- 이처럼, 반복적으로 삽입되는 코드라면 'base.html' 파일이나 'navbar.html' 파일 처럼 따로 작성한 후 include 로 삽입하는 것이 유지 보수에 유리. -->
+
 <!-- 기본  템플릿 안에 삽입할 내용 Start -->
 {% block content %}
 {% endblock %}
 <!-- 기본 템플릿 안에 삽입될 내용 End -->
+<!-- Bootstrap JS -->
+<script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
 </body>
 </html>
