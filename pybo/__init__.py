@@ -2,8 +2,6 @@ from flask import Flask
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
-import config
-
 db = SQLAlchemy()
 migrate = Migrate()
 # db 와 migrate 객체를 전역 변수로 만든다. 함수 내에서 사용할 때는 init_app 메서드를 사용해 app 에 등록한다.
@@ -29,6 +27,10 @@ def create_app():
     # return app
 
     app.config.from_object(config)
+    app.config.from_envvar('APP_CONFIG_FILE')
+    # 환경변수 APP_CONFIG_FILE 에 정의된 파일을 환경 파일로 사용하겠다는 의미이다.
+    # 따라서 개발 중인 컴퓨터의 OS 에 맞게, APP_CONFIG_FILE 환경 변수에 '.../pybo_flask/config/development.py' 를 설정해주어야 한다.
+    
     # ORM
     db.init_app(app)
     migrate.init_app(app, db)
